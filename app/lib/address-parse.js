@@ -165,7 +165,7 @@ const parseRegionWithRegexp = (fragment, hasParseResult) => {
         }
 
         if (province[0]) {
-            fragment = fragment.replace(new RegExp(matchStr, 'g'), '')
+            fragment = fragment.replace(new RegExp(`[${replaceName}省|${replaceName}市|${replaceName}区|${replaceName}县|${replaceName}镇|${replaceName}]`, 'g'), '')
         }
 
     }
@@ -188,7 +188,7 @@ const parseRegionWithRegexp = (fragment, hasParseResult) => {
         }
         if (city[0]) {
             const {provinceCode} = city[0]
-            fragment = fragment.replace(new RegExp(matchStr, 'g'), '')
+            fragment = fragment.replace(new RegExp(`[${replaceName}省|${replaceName}市|${replaceName}区|${replaceName}县|${replaceName}镇|${replaceName}]`, 'g'), '')
             if (province.length === 0) {
                 const regexProvince = new RegExp(`\{\"code\":\"${provinceCode}\",\"name\":\"[\u4E00-\u9FA5]+?\"}`, 'g')
                 const matchProvince = provinceString.match(regexProvince)
@@ -216,7 +216,7 @@ const parseRegionWithRegexp = (fragment, hasParseResult) => {
         }
         if (area[0]) {
             const {provinceCode, cityCode} = area[0]
-            fragment = fragment.replace(matchStr, '')
+            fragment = fragment.replace(new RegExp(`[${replaceName}省|${replaceName}市|${replaceName}区|${replaceName}县|${replaceName}镇|${replaceName}]`, 'g'), '')
             if (province.length === 0) {
                 const regexProvince = new RegExp(`\{\"code\":\"${provinceCode}\",\"name\":\"[\u4E00-\u9FA5]+?\"}`, 'g')
                 const matchProvince = provinceString.match(regexProvince)
@@ -270,7 +270,7 @@ const parseRegion = (fragment, hasParseResult) => {
             }
             if (replaceName) {
                 province.push(tempProvince)
-                fragment = fragment.replace(new RegExp(replaceName, 'g'), '')
+                fragment = fragment.replace(new RegExp(`[${replaceName}省|${replaceName}市|${replaceName}区|${replaceName}县|${replaceName}镇|${replaceName}]`, 'g'), '')
                 break
             }
         }
@@ -295,7 +295,7 @@ const parseRegion = (fragment, hasParseResult) => {
                     }
                     if (replaceName) {
                         city.push(tempCity)
-                        fragment = fragment.replace(new RegExp(replaceName, 'g'), '')
+                        fragment = fragment.replace(new RegExp(`[${replaceName}省|${replaceName}市|${replaceName}区|${replaceName}县|${replaceName}镇|${replaceName}]`, 'g'), '')
                         break
                     }
                 }
@@ -306,7 +306,7 @@ const parseRegion = (fragment, hasParseResult) => {
                     if (fragment.indexOf(replaceName) === 0) {
                         city.push(tempCity)
                         province.push(provinces.find(item => item.code === provinceCode))
-                        fragment = fragment.replace(replaceName, '')
+                        fragment = fragment.replace(new RegExp(`[${replaceName}省|${replaceName}市|${replaceName}区|${replaceName}县|${replaceName}镇|${replaceName}]`, 'g'), '')
                         break
                     }
                 }
@@ -339,7 +339,7 @@ const parseRegion = (fragment, hasParseResult) => {
                     area.push(tempArea)
                     !currentCity && city.push(cities.find(item => item.code === cityCode))
                     !currentProvince && province.push(provinces.find(item => item.code === provinceCode))
-                    fragment = fragment.replace(replaceName, '')
+                    fragment = fragment.replace(new RegExp(`[${replaceName}省|${replaceName}市|${replaceName}区|${replaceName}县|${replaceName}镇|${replaceName}]`, 'g'), '')
                     break
                 }
             }
@@ -351,7 +351,7 @@ const parseRegion = (fragment, hasParseResult) => {
                     area.push(tempArea)
                     city.push(cities.find(item => item.code === cityCode))
                     province.push(provinces.find(item => item.code === provinceCode))
-                    fragment = fragment.replace(replaceName, '')
+                    fragment = fragment.replace(new RegExp(`[${replaceName}省|${replaceName}市|${replaceName}区|${replaceName}县|${replaceName}镇|${replaceName}]`, 'g'), '')
                     break
                 }
             }
